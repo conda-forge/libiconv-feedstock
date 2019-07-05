@@ -14,9 +14,8 @@ make install
 # TODO :: glibc has iconv built-in. I am only providing it here
 # TODO :: for legacy packages (and through gritted teeth).
 if [[ ${HOST} =~ .*linux.* ]]; then
-  chmod 755 ${PREFIX}/lib/libiconv.so.2.6.0
+  chmod 755 ${PREFIX}/lib/libiconv.so.2.6.1
   chmod 755 ${PREFIX}/lib/libcharset.so.1.0.0
-  chmod 755 ${PREFIX}/lib/preloadable_libiconv.so
 fi
 
 # remove libtool files
