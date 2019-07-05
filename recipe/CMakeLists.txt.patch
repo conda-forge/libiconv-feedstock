@@ -41,7 +41,7 @@
 +# libcharset
 +set ( SRC_LIBCHARSET
 +  libcharset/lib/localcharset.c
-+  libcharset/lib/relocatable.c
++  
 +)
 +
 +add_library ( charset SHARED ${SRC_LIBCHARSET} )
