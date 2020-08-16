@@ -22,6 +22,7 @@ build:
 
 requirements:
   build:
+    - libtool  # [unix]
     - {{ compiler('c') }}
     - cmake     # [win]
     - ninja     # [win]
