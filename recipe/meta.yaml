@@ -24,15 +24,16 @@ requirements:
   build:
     - libtool  # [unix]
     - {{ compiler('c') }}
-    - cmake     # [win]
-    - ninja     # [win]
-    - m2-patch  # [win]
-    - make      # [unix]
+    - pkg-config # [unix]
+    - cmake      # [win]
+    - ninja      # [win]
+    - m2-patch   # [win]
+    - make       # [unix]
 
 test:
   commands:
     - iconv --help  # [not win]
-
+    - pkg-config iconv --cflags # [not win]
 about:
   home: https://www.gnu.org/software/libiconv/
   license: GPL and LGPL
