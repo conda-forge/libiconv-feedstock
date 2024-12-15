@@ -1,4 +1,4 @@
-{% set version = "1.17" %}
+{% set version = "1.18" %}
 
 package:
   name: libiconv-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-{{ version }}.tar.gz
-  sha256: 8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313
+  sha256: 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
   patches:
     - glibc.patch  # [linux]
     - CMakeLists.txt.patch  # [win]
@@ -15,7 +15,7 @@ source:
     - utf_8_mac.patch  # [osx]
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
@@ -25,6 +25,7 @@ requirements:
     - gperf     # [osx]
     - libtool   # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - cmake     # [win]
     - ninja     # [win]
     - m2-patch  # [win]
@@ -43,6 +44,7 @@ outputs:
       build:
         - libtool   # [unix]
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - cmake     # [win]
         - ninja     # [win]
         - m2-patch  # [win]
@@ -76,17 +78,18 @@ outputs:
       license: LGPL-2.1-only
       license_file: COPYING.LIB
       summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
-  
+
   - name: iconv
     script: install.sh
     # there is no executable available on windows, see
     # https://github.com/conda-forge/libiconv-feedstock/pull/7#issuecomment-224392000
     build:
-      skip: True  # [win]
+      skip: true  # [win]
     requirements:
       build:
         - libtool
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - make
       host:
         - {{ pin_subpackage('libiconv', exact=True) }}
