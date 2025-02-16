@@ -24,7 +24,7 @@ else
   echo "Keeping all files, conda-build will deduplicate files"
 fi
 
-echo >${PREFIX}/lib/pkgconfig/iconv.pc <<EOF
+cat > ${PREFIX}/lib/pkgconfig/iconv.pc <<EOF
 prefix=${PREFIX}
 exec_prefix=\${prefix}
 libdir=\${exec_prefix}/lib
