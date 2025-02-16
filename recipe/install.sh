@@ -15,7 +15,7 @@ fi
 find $PREFIX -name '*.la' -delete
 
 if [[ "${PKG_NAME}" == "libiconv" ]]; then
-  # remove iconv executable   
+  # remove iconv executable
   rm $PREFIX/bin/iconv
   rm -rf $PREFIX/share/man
   rm -rf $PREFIX/share/doc
@@ -23,3 +23,16 @@ else
   # relying on conda-build to deduplicate files
   echo "Keeping all files, conda-build will deduplicate files"
 fi
+
+echo >${PREFIX}/lib/pkgconfig/libiconv.pc <<EOF
+prefix=${PREFIX}
+exec_prefix=\${prefix}
+libdir=\${exec_prefix}/lib
+includedir=\${prefix}/include
+
+Name: libiconv
+Description: GNU Unicode conversion library
+Version: ${PKG_VERSION}
+Libs: -L\${libdir} -liconv
+Cflags: -I\${includedir}
+EOF
