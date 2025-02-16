@@ -15,7 +15,7 @@ source:
     - utf_8_mac.patch  # [osx]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
@@ -25,6 +25,7 @@ requirements:
     - gperf     # [osx]
     - libtool   # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - cmake     # [win]
     - ninja     # [win]
     - m2-patch  # [win]
@@ -43,6 +44,7 @@ outputs:
       build:
         - libtool   # [unix]
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - cmake     # [win]
         - ninja     # [win]
         - m2-patch  # [win]
@@ -76,7 +78,7 @@ outputs:
       license: LGPL-2.1-only
       license_file: COPYING.LIB
       summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
-  
+
   - name: iconv
     script: install.sh
     # there is no executable available on windows, see
@@ -87,6 +89,7 @@ outputs:
       build:
         - libtool
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - make
       host:
         - {{ pin_subpackage('libiconv', exact=True) }}
@@ -100,7 +103,7 @@ outputs:
         # Ensure we run the built iconv and not the one from the base system.
         - test "$(command -v iconv)" = "${PREFIX}/bin/iconv"  # [unix]
         # Test working patched-in UTF-8-MAC encoding.
-        - test "$(printf '\xc3\xa4' | iconv --from-code=UTF-8 --to-code=UTF-8-MAC)" = "$(printf '\x61\xcc\x88')"  # [osx]        
+        - test "$(printf '\xc3\xa4' | iconv --from-code=UTF-8 --to-code=UTF-8-MAC)" = "$(printf '\x61\xcc\x88')"  # [osx]
     about:
       home: https://www.gnu.org/software/libiconv/
       license: GPL-3.0-only
