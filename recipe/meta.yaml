@@ -25,6 +25,7 @@ requirements:
     - gperf     # [osx]
     - libtool   # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - cmake     # [win]
     - ninja     # [win]
     - m2-patch  # [win]
@@ -43,6 +44,7 @@ outputs:
       build:
         - libtool   # [unix]
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - cmake     # [win]
         - ninja     # [win]
         - m2-patch  # [win]
@@ -87,6 +89,7 @@ outputs:
       build:
         - libtool
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - make
       host:
         - {{ pin_subpackage('libiconv', exact=True) }}
