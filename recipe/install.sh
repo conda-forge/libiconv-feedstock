@@ -24,13 +24,13 @@ else
   echo "Keeping all files, conda-build will deduplicate files"
 fi
 
-echo >${PREFIX}/lib/pkgconfig/libiconv.pc <<EOF
+echo >${PREFIX}/lib/pkgconfig/iconv.pc <<EOF
 prefix=${PREFIX}
 exec_prefix=\${prefix}
 libdir=\${exec_prefix}/lib
 includedir=\${prefix}/include
 
-Name: libiconv
+Name: iconv
 Description: GNU Unicode conversion library
 Version: ${PKG_VERSION}
 Libs: -L\${libdir} -liconv
