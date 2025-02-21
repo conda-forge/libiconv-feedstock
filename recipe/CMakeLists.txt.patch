@@ -1,6 +1,6 @@
 --- /dev/null
 +++ CMakeLists.txt
-@@ -0,0 +1,64 @@
+@@ -0,0 +1,66 @@
 +# Copyright (C) 2007-2012 LuaDist.
 +# Created by Peter Drahoš
 +# Redistribution and use of this file is allowed according to the terms of the MIT license.
@@ -22,7 +22,7 @@
 +
 +configure_file(config.h.cmake ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
 +configure_file(include/iconv.h.build.in ${CMAKE_CURRENT_SOURCE_DIR}/include/iconv.h)
-+configure_file(libcharset/include/libcharset.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/libcharset.h)
++configure_file(libcharset/include/libcharset.h.build.in ${CMAKE_CURRENT_SOURCE_DIR}/include/libcharset.h)
 +configure_file(srclib/uniwidth.in.h ${CMAKE_CURRENT_SOURCE_DIR}/srclib/uniwidth.h)
 +configure_file(srclib/unitypes.in.h ${CMAKE_CURRENT_SOURCE_DIR}/srclib/unitypes.h)
 +
@@ -38,6 +38,7 @@
 +# libcharset
 +set(SRC_LIBCHARSET
 +  libcharset/lib/localcharset.c
++  libcharset/lib/relocatable-stub.c
 +)
 +
 +add_library(charset SHARED ${SRC_LIBCHARSET})
@@ -47,6 +48,7 @@
 +# libiconv
 +set(SRC_LIBICONV
 +  lib/iconv.c
++  lib/compat.c
 +)
 +
 +add_library(iconv SHARED ${SRC_LIBICONV})

@@ -15,7 +15,7 @@ source:
     - utf_8_mac.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -52,7 +52,8 @@ outputs:
 
     test:
       requires:
-        - jq  # [unix]
+        - jq          # [unix]
+        - pkg-config  # [win]
       commands:
         # Ensuring iconv executable is not present.
         # Otherwise the included license is wrong and should be GPL-3.0-only.
@@ -73,6 +74,8 @@ outputs:
         - if not exist %LIBRARY_PREFIX%\lib\charset.lib exit 1  # [win]
         - if not exist %LIBRARY_PREFIX%\bin\iconv.dll exit 1    # [win]
         - if not exist %LIBRARY_PREFIX%\bin\charset.dll exit 1  # [win]
+        # Regression test for https://github.com/conda-forge/libiconv-feedstock/issues/48
+        - pkg-config --help  # [win]
     about:
       home: https://www.gnu.org/software/libiconv/
       license: LGPL-2.1-only
