@@ -11,7 +11,7 @@ ninja
 if errorlevel 1 exit 1
 
 :: Test.
-if not %CONDA_BUILD_SKIP_TESTS%==1 (
-ctest -C Release
+if not "%CONDA_BUILD_SKIP_TESTS%"=="1" (
+  ctest -C Release
 )
 if errorlevel 1 exit 1
