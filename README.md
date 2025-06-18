@@ -13,21 +13,21 @@ Package license: GPL-3.0-only AND LGPL-2.1-only
 
 Summary: Split feedstock providing iconv and libiconv for systems which don't have one (or that cannot convert from/to Unicode.)
 
-About libiconv
---------------
-
-Home: https://www.gnu.org/software/libiconv/
-
-Package license: LGPL-2.1-only
-
-Summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
-
 About iconv
 -----------
 
 Home: https://www.gnu.org/software/libiconv/
 
 Package license: GPL-3.0-only
+
+Summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+About libiconv
+--------------
+
+Home: https://www.gnu.org/software/libiconv/
+
+Package license: LGPL-2.1-only
 
 Summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
 
@@ -88,6 +88,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=547&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libiconv-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_arm64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=547&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libiconv-feedstock?branchName=main&jobName=win&configuration=win%20win_arm64_" alt="variant">
                 </a>
               </td>
             </tr>
