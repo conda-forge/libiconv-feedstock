@@ -54,7 +54,7 @@
 +add_library(iconv SHARED ${SRC_LIBICONV})
 +target_link_libraries(iconv charset)
 +set_target_properties(iconv PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
-+target_compile_definitions(iconv PRIVATE BUILDING_LIBICONV)
++target_compile_definitions(iconv PRIVATE BUILDING_LIBICONV ENABLE_EXTRA=1)
 +
 +# removed exe since it requires safe_read which doesn't work with MSVC
 +#add_executable(iconvcli src/iconv_no_i18n.c)

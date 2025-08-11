@@ -10,7 +10,8 @@ cp $BUILD_PREFIX/share/libtool/build-aux/config.* ./libcharset/build-aux
             --host=${HOST}      \
             --build=${BUILD}    \
             --enable-static     \
-            --disable-rpath
+            --disable-rpath     \
+            --enable-extra-encodings
 
 if [[ "${target_platform}" == osx-* ]]; then
     make -f Makefile.devel CC="${CC_FOR_BUILD}" CFLAGS="${CFLAGS}"

@@ -15,7 +15,7 @@ source:
     - utf_8_mac.patch  # [osx]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
