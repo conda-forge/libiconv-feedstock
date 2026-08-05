@@ -2,7 +2,7 @@
 
 package:
   name: libiconv-split
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-{{ version }}.tar.gz
