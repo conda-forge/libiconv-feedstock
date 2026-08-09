@@ -21,3 +21,16 @@ make -j${CPU_COUNT}
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" != "1" ]]; then
   make check
 fi
+
+make install
+
+if [[ ${HOST} =~ .*linux.* ]]; then
+  chmod 755 ${PREFIX}/lib/libiconv.so.2.7.0
+  chmod 755 ${PREFIX}/lib/libcharset.so.1.0.0
+  if [ -f ${PREFIX}/lib/preloadable_libiconv.so ]; then
+    chmod 755 ${PREFIX}/lib/preloadable_libiconv.so
+  fi
+fi
+
+# Remove libtool files.
+find $PREFIX -name '*.la' -delete
