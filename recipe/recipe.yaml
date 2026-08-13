@@ -163,6 +163,7 @@ about:
 extra:
   feedstock-name: libiconv
   recipe-maintainers:
+    - wolfv
     - ocefpaf
     - jakirkham
     - jhamman
