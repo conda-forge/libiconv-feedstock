@@ -1,0 +1,172 @@
+schema_version: 1
+
+context:
+  version: "1.18"
+
+recipe:
+  name: libiconv-split
+  version: ${{ version }}
+
+source:
+  url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${{ version }}.tar.gz
+  sha256: 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
+  patches:
+    - if: linux
+      then: glibc.patch
+    - if: win
+      then:
+        - CMakeLists.txt.patch
+        - config.h.patch
+        - configure.cmake.patch
+    - if: osx
+      then: utf_8_mac.patch
+
+build:
+  number: 3
+
+outputs:
+  - staging:
+      name: libiconv-build
+    build:
+      script: build
+    requirements:
+      build:
+        - if: osx
+          then:
+            - automake
+            - autoconf
+            - groff
+            - gperf
+        - if: unix
+          then:
+            - libtool
+            - make
+        - if: win
+          then:
+            - cmake <4
+            - ninja
+            - m2-patch
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+
+  - package:
+      name: libiconv
+    inherit:
+      from: libiconv-build
+      run_exports: false
+    build:
+      files:
+        - if: unix
+          then:
+            - include
+            - lib/libcharset.*
+            - lib/libiconv.*
+            - share/locale
+        - if: win
+          then:
+            - Library/bin/charset.dll
+            - Library/bin/iconv.dll
+            - Library/include
+            - Library/lib/charset.lib
+            - Library/lib/iconv.lib
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+      run_exports:
+        # Pretty good recently, let's trust them.
+        # https://abi-laboratory.pro/tracker/timeline/libiconv/
+        - ${{ pin_subpackage('libiconv', upper_bound='x') }}
+    tests:
+      - package_contents:
+          include:
+            - iconv.h
+            - libcharset.h
+            - localcharset.h
+          lib:
+            - charset
+            - iconv
+          files:
+            not_exists:
+              # The executable and documentation are GPL-3.0-only and belong
+              # in the iconv output.
+              - if: unix
+                then:
+                  - bin/iconv
+                  - share/man/**
+                  - share/doc/**
+              - if: win
+                then: Library/bin/iconv.exe
+      # Regression test for
+      # https://github.com/conda-forge/libiconv-feedstock/issues/48
+      - if: win
+        then:
+          requirements:
+            run:
+              - pkg-config
+          script:
+            - pkg-config --help
+    about:
+      homepage: https://www.gnu.org/software/libiconv/
+      license: LGPL-2.1-only
+      license_file: COPYING.LIB
+      summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+  - package:
+      name: iconv
+    inherit:
+      from: libiconv-build
+      run_exports: false
+    build:
+      skip: win
+      files:
+        - bin/iconv
+        - share/doc
+        - share/man
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+      host:
+        - ${{ pin_subpackage('libiconv', exact=True) }}
+      run:
+        - ${{ pin_subpackage('libiconv', exact=True) }}
+    tests:
+      - package_contents:
+          bin:
+            - iconv
+      - script:
+          - iconv --help
+          # Print all supported encodings.
+          - if: osx
+            then: iconv -l | grep "UTF-8-MAC"
+          # Ensure we run the built iconv and not the one from the base system.
+          - if: unix
+            then: test "$(command -v iconv)" = "${PREFIX}/bin/iconv"
+          # Test working patched-in UTF-8-MAC encoding.
+          - if: osx
+            then: test "$(printf '\xc3\xa4' | iconv --from-code=UTF-8 --to-code=UTF-8-MAC)" = "$(printf '\x61\xcc\x88')"
+    about:
+      homepage: https://www.gnu.org/software/libiconv/
+      license: GPL-3.0-only
+      license_file: COPYING
+      summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+about:
+  homepage: https://www.gnu.org/software/libiconv/
+  license: GPL-3.0-only AND LGPL-2.1-only
+  license_file:
+    - COPYING
+    - COPYING.LIB
+  summary: Split feedstock providing iconv and libiconv for systems which don't have one (or that cannot convert from/to Unicode.)
+
+extra:
+  feedstock-name: libiconv
+  recipe-maintainers:
+    - wolfv
+    - ocefpaf
+    - jakirkham
+    - jhamman
+    - scopatz
+    - mbargull
+    - h-vetinari

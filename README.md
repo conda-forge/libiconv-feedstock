@@ -9,15 +9,6 @@ About libiconv
 
 Home: https://www.gnu.org/software/libiconv/
 
-Package license: GPL-3.0-only AND LGPL-2.1-only
-
-Summary: Split feedstock providing iconv and libiconv for systems which don't have one (or that cannot convert from/to Unicode.)
-
-About iconv
------------
-
-Home: https://www.gnu.org/software/libiconv/
-
 Package license: GPL-3.0-only
 
 Summary: Provides iconv for systems which don't have one (or that cannot convert from/to Unicode.)
@@ -249,4 +240,5 @@ Feedstock Maintainers
 * [@mbargull](https://github.com/mbargull/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@scopatz](https://github.com/scopatz/)
+* [@wolfv](https://github.com/wolfv/)
 
