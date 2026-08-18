@@ -2,7 +2,7 @@
 
 package:
   name: libiconv-split
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: http://ftp.gnu.org/pub/gnu/libiconv/libiconv-{{ version }}.tar.gz
@@ -15,7 +15,7 @@ source:
     - utf_8_mac.patch  # [osx]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
@@ -129,3 +129,4 @@ extra:
     - jhamman
     - scopatz
     - mbargull
+    - h-vetinari
